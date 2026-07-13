@@ -1,0 +1,26 @@
+{
+  "name": "ai-investment-agent-server",
+  "version": "1.0.0",
+  "description": "Backend for AI Investment Research Agent",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.0.52",
+    "@langchain/core": "^0.1.62",
+    "@langchain/google-genai": "^0.0.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.5.2",
+    "langchain": "^0.1.36",
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

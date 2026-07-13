@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#000000] text-[#A1A1AA] antialiased selection:bg-primary-500/30 selection:text-textMain;
+  }
+}
+
+@layer components {
+  /* Ultra-sleek, 1px border cards typical of Vercel/Linear */
+  .dashboard-card {
+    @apply bg-surface border border-border rounded-xl shadow-2xl transition-all duration-300 ease-out hover:border-borderHover relative overflow-hidden;
+  }
+  
+  /* Adds a subtle top-inner-glow to cards */
+  .dashboard-card::before {
+    content: '';
+    @apply absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply flex items-center justify-center px-6 py-2.5 bg-textMain text-background hover:bg-white font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-textMain/50 active:scale-95;
+  }
+  
+  /* Input Fields */
+  .input-field {
+    @apply w-full px-5 py-3.5 bg-surface border border-border rounded-lg focus:border-borderHover focus:ring-1 focus:ring-textMain/20 outline-none transition-all duration-200 placeholder-textMuted text-textMain text-base;
+  }
+
+  /* Status Badges */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-wide uppercase border;
+  }
+  .badge-success {
+    @apply bg-success-500/10 text-success-400 border-success-500/20;
+  }
+  .badge-danger {
+    @apply bg-danger-500/10 text-danger-400 border-danger-500/20;
+  }
+  .badge-neutral {
+    @apply bg-white/5 text-textMuted border-white/10;
+  }
+}
