@@ -27,14 +27,21 @@ export const analyzeCompany = async (req, res, next) => {
 
     logger.info(`Cache MISS for: ${company}. Starting fresh analysis.`);
 
-    // ==========================================
-    // MOCK DATA FALLBACK FOR DEMO PURPOSES
-    // ==========================================
-    if (process.env.GEMINI_API_KEY === 'MOCK_KEY_FOR_TESTING' || !process.env.GEMINI_API_KEY) {
-      logger.info(`Using MOCK DATA for ${company} to bypass API limits.`);
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 3500));
+    // 2. Call the LangChain service
+    try {
+      const analysisResult = await agentService.analyzeCompany(company);
+
+      // 3. Save to Cache
+      responseCache.set(cacheKey, analysisResult);
+
+      // Return the successful response
+      return res.status(200).json({
+        success: true,
+        data: analysisResult,
+        cached: false
+      });
+    } catch (llmError) {
+      logger.warn(`API Error for ${company}, falling back to MOCK DATA. Error: ${llmError.message}`);
       
       const mockResult = {
         companyOverview: `${company.toUpperCase()} is a global leader in high-performance computing, AI infrastructure, and autonomous vehicle technologies. They design and manufacture advanced silicon and software systems.`,
@@ -67,25 +74,13 @@ export const analyzeCompany = async (req, res, next) => {
       return res.status(200).json({
         success: true,
         data: mockResult,
-        cached: false
+        cached: false,
+        isMock: true
       });
     }
 
-    // 2. Call the LangChain service
-    const analysisResult = await agentService.analyzeCompany(company);
-
-    // 3. Save to Cache
-    responseCache.set(cacheKey, analysisResult);
-
-    // Return the successful response
-    return res.status(200).json({
-      success: true,
-      data: analysisResult,
-      cached: false
-    });
-
   } catch (error) {
-    // Pass any errors down to the global error handler middleware
+    // Pass any system errors down to the global error handler middleware
     next(error);
   }
 };
