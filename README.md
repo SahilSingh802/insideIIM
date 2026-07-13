@@ -1,6 +1,17 @@
 # InvestAI: AI-Powered Investment Research Agent
 
-![Screenshots Placeholder (Add your UI screenshot here)](/assets/screenshot-placeholder.png)
+![InvestAI Dashboard](./websiteui.png)
+
+## Live Demo
+
+Frontend:
+https://inside-iim-pi.vercel.app/
+
+Backend:
+https://invest-ai-backend.onrender.com
+
+GitHub:
+https://github.com/SahilSingh802/insideIIM
 
 ## Overview
 InvestAI is a full-stack, production-ready AI investment research application. Designed to mimic the workflow of a Wall Street quantitative analyst, the agent takes a public company name, scours the web for live financial data and market sentiment, and delivers a definitive, structured `INVEST` or `PASS` recommendation. 
